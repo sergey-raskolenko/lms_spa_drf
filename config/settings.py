@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MY_APPS = [
     'rest_framework',
+    'django_filters',
     'users',
     'app_course',
     'app_payment',
