@@ -18,7 +18,7 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
-	name = models.CharField(max_length=150,verbose_name='название')
+	name = models.CharField(max_length=150, verbose_name='название')
 	description = models.TextField(**NULLABLE, verbose_name='описание')
 	preview = models.ImageField(upload_to='lessons/', verbose_name='фото урока', **NULLABLE)
 	video_url = models.URLField(**NULLABLE, verbose_name='ссылка на видео')
@@ -32,6 +32,6 @@ class Lesson(models.Model):
 			return self.name
 
 	class Meta:
-		verbose_name = ''
-		verbose_name_plural = ''
+		verbose_name = 'Урок'
+		verbose_name_plural = 'Уроки'
 		ordering = ('course', 'name',)
