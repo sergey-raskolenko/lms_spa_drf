@@ -45,6 +45,7 @@ MY_APPS = [
     'rest_framework',
     'users',
     'app_course',
+    'app_payment',
 ]
 INSTALLED_APPS += MY_APPS
 
