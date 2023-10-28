@@ -3,7 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from app_course.models import Course
 from app_course.serializers.course import CourseSerializer
-from users.permissions import IsManager, IsSuperUser
+from users.permissions import IsManager, IsSuperUser, IsOwner
 
 
 class CourseViewSet(ModelViewSet):
@@ -15,9 +15,15 @@ class CourseViewSet(ModelViewSet):
 		new_course.owner = self.request.user
 		new_course.save()
 
+	def get_queryset(self):
+		user = self.request.user
+		if user.groups.filter(name='Manager') or user.is_superuser:
+			return Course.objects.all()
+		return Course.objects.filter(owner=user)
+
 	def get_permissions(self):
 		if self.request.method in ['PUT', 'PATCH']:
-			permission_classes = [IsSuperUser | IsManager]
+			permission_classes = [IsOwner | IsSuperUser | IsManager]
 		elif self.request.method in ['DELETE']:
 			permission_classes = [IsSuperUser]
 		elif self.request.method in ['POST']:
