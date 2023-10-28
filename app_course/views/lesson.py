@@ -8,7 +8,12 @@ from users.permissions import IsManager, IsSuperUser
 class LessonCreateAPIView(generics.CreateAPIView):
 	serializer_class = LessonSerializer
 	queryset = Lesson.objects.all()
-	permission_classes = [IsSuperUser]
+	permission_classes = [~IsManager]
+
+	def perform_create(self, serializer):
+		new_lesson = serializer.save()
+		new_lesson.owner = self.request.user
+		new_lesson.save()
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
