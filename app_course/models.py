@@ -1,5 +1,6 @@
 from django.db import models
 
+from config import settings
 from users.models import NULLABLE
 
 
@@ -7,6 +8,8 @@ class Course(models.Model):
 	title = models.CharField(max_length=150, verbose_name='название')
 	preview = models.ImageField(upload_to='courses/', verbose_name='фото курса', **NULLABLE)
 	description = models.TextField(**NULLABLE, verbose_name='описание')
+
+	owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE, verbose_name='владелец')
 
 	def __str__(self):
 		return self.title
@@ -24,6 +27,8 @@ class Lesson(models.Model):
 	video_url = models.URLField(**NULLABLE, verbose_name='ссылка на видео')
 
 	course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='курс', **NULLABLE)
+
+	owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE, verbose_name='владелец')
 
 	def __str__(self):
 		if self.course is not None:
