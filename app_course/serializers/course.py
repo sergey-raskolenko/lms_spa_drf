@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from app_course.models import Course
 from app_course.serializers.lesson import LessonSerializer
+from app_course.validators import CourseUrlValidator
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -11,3 +12,4 @@ class CourseSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Course
 		fields = '__all__'
+		validators = [CourseUrlValidator(field='description')]
