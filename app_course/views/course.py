@@ -2,6 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from app_course.models import Course
+from app_course.paginators import CoursePaginator
 from app_course.serializers.course import CourseSerializer
 from users.permissions import IsManager, IsSuperUser, IsOwner
 
@@ -9,6 +10,7 @@ from users.permissions import IsManager, IsSuperUser, IsOwner
 class CourseViewSet(ModelViewSet):
 	serializer_class = CourseSerializer
 	queryset = Course.objects.all()
+	pagination_class = CoursePaginator
 
 	def perform_create(self, serializer):
 		new_course = serializer.save()
