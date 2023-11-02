@@ -96,13 +96,6 @@ class SubscriptionTestCase(APITestCase):
 		self.course = Course.objects.create(title='Test')
 		self.sub = Subscription.objects.create(user=self.user, course=self.course)
 
-	def test_list_sub(self):
-		response = self.client.get(reverse('course:subscriptions-list'),)
-		self.assertEquals(
-			response.status_code,
-			status.HTTP_200_OK
-		)
-
 	def test_create_sub(self):
 		data = {
 			'user': self.user.pk,
@@ -110,26 +103,15 @@ class SubscriptionTestCase(APITestCase):
 			'is_active': False
 		}
 		response = self.client.post(
-			reverse('course:subscriptions-list'),
+			reverse('course:create-subscription'),
 			data=data
 		)
 		self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-	def test_update_sub(self):
-		data = {
-			'is_active': False
-		}
-		response = self.client.patch(
-			reverse('course:subscriptions-detail', kwargs={'pk': self.sub.pk}),
-			data=data
-		)
-		self.assertEqual(response.status_code, status.HTTP_200_OK)
-		self.assertEqual(response.json().get('is_active'), False)
-
 	def test_delete_sub(self):
 		new_sub = Subscription.objects.create(user=self.user, course=self.course)
 		response = self.client.delete(
-			reverse('course:subscriptions-detail', kwargs={'pk': new_sub.pk})
+			reverse('course:delete-subscription', kwargs={'pk': new_sub.pk})
 		)
 		self.assertEquals(
 			response.status_code,

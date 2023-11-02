@@ -46,6 +46,7 @@ MY_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
+    'drf_yasg',
     'users',
     'app_course',
     'app_payment',
@@ -157,3 +158,5 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=59),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+STRIPE_API_KEY = 'sk_test_51O84MXDjen030uO3DgH2EWzv7ouwJtzaYFBKcLf1eKmi1vg3xPEPKGV3CuQH4TABaNzlv36bhE2z7C7xUqpBY7i400R41L0uXH'
