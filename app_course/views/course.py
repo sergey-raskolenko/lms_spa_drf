@@ -1,3 +1,4 @@
+from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
@@ -35,7 +36,10 @@ class CourseViewSet(ModelViewSet):
 		return [permission() for permission in permission_classes]
 
 
-class SubscriptionViewSet(ModelViewSet):
+class SubscriptionCreateAPIView(generics.CreateAPIView):
+	serializer_class = SubscriptionSerializer
+
+
+class SubscriptionDestroyAPIView(generics.DestroyAPIView):
 	serializer_class = SubscriptionSerializer
 	queryset = Subscription.objects.all()
-
