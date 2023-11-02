@@ -46,6 +46,7 @@ MY_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
+    'drf_yasg',
     'users',
     'app_course',
     'app_payment',
