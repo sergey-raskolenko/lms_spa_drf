@@ -22,7 +22,7 @@ class UserViewSet(ModelViewSet):
 	def get_permissions(self):
 		if self.request.method in ['PUT', 'PATCH']:
 			permission_classes = [IsCurrentUser | IsSuperUser | IsManager]
-		elif self.request.method in ['DELETE', 'POST']:
+		elif self.request.method in ['DELETE']:
 			permission_classes = [IsSuperUser]
 		else:
 			permission_classes = []
